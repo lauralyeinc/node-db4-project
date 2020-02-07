@@ -3,6 +3,7 @@ exports.up = function(knex) {
     return (knex.schema
         .createTable('quantity_of_ingredients', tbl => {
             tbl.increments();
+            tbl.integer('amount').notNullable(); 
         }))
         .createTable('courses', tbl => {
             tbl.increments();
