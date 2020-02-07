@@ -3,12 +3,10 @@ exports.up = function(knex) {
     return (knex.schema
         .createTable('quantity_of_ingredients', tbl => {
             tbl.increments();
-            tbl.float('# of wet measurement');
-            tbl.float('# of dry measurement')
         }))
         .createTable('courses', tbl => {
             tbl.increments();
-            tbl.string('type of course', 128).unique(); 
+            tbl.string('type_of_course', 128).unique(); 
         })
         .createTable('instructions', tbl => {
             tbl.increments();
