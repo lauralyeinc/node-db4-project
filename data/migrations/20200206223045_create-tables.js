@@ -1,13 +1,13 @@
 
 exports.up = function(knex) {
     return (knex.schema
-        .createTable('quantiy of ingredients', tbl => {
+        .createTable('quantity_of_ingredients', tbl => {
             tbl.increments();
             tbl.float('# of wet measurement');
             tbl.float('# of dry measurement')
         }))
         .createTable('courses', tbl => {
-            tbl.icrements();
+            tbl.increments();
             tbl.string('type of course', 128).unique(); 
         })
         .createTable('instructions', tbl => {
@@ -16,12 +16,11 @@ exports.up = function(knex) {
         })
         .createTable('ingredients', tbl => {
             tbl.increments();
-            tbl.string('name', 128),notNullable().unique();
-            tbl.integer('quanity_id')
-                .unsigned()
+            tbl.string('name', 128).notNullable().unique();
+            tbl.integer('quantity_id')
                 .notNullable()
-                .reference('id')
-                .inTable('quanity of ingredients');
+                .unsigned()
+                .references('quantity_of_ingredients.id');
         })
         .createTable('recipes', tbl => {
             tbl.increments();
@@ -29,16 +28,16 @@ exports.up = function(knex) {
             tbl.integer('ingredients_id')
                 .unsigned()
                 .notNullable()
-                .reference('ingredients.id');
+                .references('ingredients.id');
             tbl.integer('instructions_id')
                 .unsigned()
                 .notNullable()
-                .reference('instructions.id');
+                .references('instructions.id');
             tbl.integer('course_id')
                 .unsigned()
                 .notNullable()
                 .unsigned()
-                .reference('courses.id');
+                .references('courses.id');
         });
 };
 
@@ -48,6 +47,6 @@ exports.down = function(knex) {
         .dropTableIfExists('ingredients')
         .dropTableIfExists('instructions')
         .dropTableIfExists('courses')
-        .dropTableIfExists('quanity of ingredients')
+        .dropTableIfExists('quantity_of_ingredients')
     );
 };
